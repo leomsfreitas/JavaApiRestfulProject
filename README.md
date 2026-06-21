@@ -1,10 +1,10 @@
-# API REST - Sistema de Consertos de Veículos
+# REST API — Vehicle Repair System
 
-## Sobre o Projeto
+## About the Project
 
-A aplicação é uma API RESTful que permite gerenciar o cadastro de consertos de veículos, incluindo informações sobre o veículo, mecânico responsável e datas de entrada e saída. O sistema implementa operações CRUD completas com validações, paginação e exclusão lógica de registros.
+A RESTful API for managing vehicle repair records, including vehicle information, the responsible mechanic, and entry/exit dates. The system implements full CRUD operations with validation, pagination, and soft deletion of records.
 
-## Tecnologias 
+## Technologies
 
 - **Java 21**
 - **Spring Boot 3.5.5**
@@ -15,14 +15,13 @@ A aplicação é uma API RESTful que permite gerenciar o cadastro de consertos d
 - **Lombok**
 - **Maven**
 
+## API Endpoints
 
-## Endpoints da API
-
-### POST - Cadastrar Conserto
+### POST — Register Repair
 ```http
 POST /repairs
 ```
-```http
+```json
 {
   "entryDate": "YYYY-MM-DD",
   "exitDate": "YYYY-MM-DD",
@@ -38,39 +37,39 @@ POST /repairs
   }
 }
 ```
-**Resposta**: `201 Created` com dados completos do conserto
+**Response:** `201 Created` with the full repair record.
 
 ---
 
-### GET - Listar Todos (com paginação)
+### GET — List All (paginated)
 ```http
 GET /repairs?page=0&size=10
 ```
-**Resposta**: `200 OK` com página de consertos
+**Response:** `200 OK` with a page of repairs.
 
 ---
 
-### GET - Listar Parcial (apenas ativos, sem paginação)
+### GET — List Active (no pagination)
 ```http
 GET /repairs/active
 ```
-**Resposta**: `200 OK` com lista resumida (ID, datas, nome mecânico, marca e modelo)
+**Response:** `200 OK` with a summary list (ID, dates, mechanic name, make and model).
 
 ---
 
-### GET - Buscar por ID
+### GET — Find by ID
 ```http
 GET /repairs/{id}
 ```
-**Resposta**: `200 OK` com detalhes completos ou `404 Not Found`
+**Response:** `200 OK` with full details, or `404 Not Found`.
 
 ---
 
-### PUT - Atualizar Conserto
+### PUT — Update Repair
 ```http
 PUT /repairs
 ```
-```http
+```json
 {
   "id": 0,
   "exitDate": "YYYY-MM-DD",
@@ -78,27 +77,27 @@ PUT /repairs
   "yearsOfExperience": 0
 }
 ```
-**Resposta**: `200 OK` com dados atualizados
+**Response:** `200 OK` with the updated record.
 
 ---
 
-### DELETE - Exclusão Lógica
+### DELETE — Soft Delete
 ```http
 DELETE /repairs/{id}
 ```
-**Resposta**: `204 No Content`
+**Response:** `204 No Content`
 
-## Migrations (Flyway)
+## Database Migrations (Flyway)
 
-O projeto utiliza Flyway para versionamento do banco de dados:
+Flyway is used for database versioning. Migrations are applied automatically on startup:
 
-- **V1**: Criação da tabela `repairs` com campos básicos
-- **V2**: Adição do campo `vehicle_color` na tabela
-- **V3**: Adição do campo `active` para exclusão lógica
-- **V4**: População inicial da tabela `repairs` com dados de exemplo
+| Version | Description |
+|---------|-------------|
+| V1 | Create `repairs` table with basic fields |
+| V2 | Add `vehicle_color` column |
+| V3 | Add `active` column for soft deletion |
+| V4 | Seed `repairs` table with sample data |
 
-As migrations são executadas automaticamente na inicialização da aplicação.
+## Credits
 
-## Créditos
-
-Projeto desenvolvido para a disciplina **PRW3 (Programação Web 3)**
+Project developed for the **PRW3 (Web Programming 3)** course.
